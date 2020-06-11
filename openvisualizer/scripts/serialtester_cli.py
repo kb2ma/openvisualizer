@@ -48,7 +48,8 @@ def cli(port, baudrate, iotlab_mote, iotlab_user, iotlab_passwd,
             moteprobe = IotlabMoteProbe(
                 iotlab_mote=iotlab_mote,
                 iotlab_user=iotlab_user,
-                iotlab_passwd=iotlab_passwd
+                iotlab_passwd=iotlab_passwd,
+                baudrate=baudrate,
                 )
             while moteprobe._socket is None:
                 time.sleep(0.1)
