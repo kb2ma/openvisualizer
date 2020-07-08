@@ -109,16 +109,17 @@ class CoapServer(EventBusClient):
                     'signal': 'getL2SecurityKey',
                     'callback': self._get_l2_security_key_notif,
                 },
-                {
-                    'sender': self.WILDCARD,
-                    'signal': 'registerDagRoot',
-                    'callback': self._register_dagroot_notif
-                },
-                {
-                    'sender': self.WILDCARD,
-                    'signal': 'unregisterDagRoot',
-                    'callback': self._unregister_dagroot_notif
-                },
+                # Elide join handling for development purposes
+                #{
+                #    'sender': self.WILDCARD,
+                #    'signal': 'registerDagRoot',
+                #    'callback': self._register_dagroot_notif
+                #},
+                #{
+                #    'sender': self.WILDCARD,
+                #    'signal': 'unregisterDagRoot',
+                #    'callback': self._unregister_dagroot_notif
+                #},
             ]
         )
 
@@ -261,7 +262,10 @@ class JoinResource(coapResource.coapResource):
     def __init__(self):
         self.joinedNodes = []
 
-        self.networkKey = u.str2buf(os.urandom(16))  # random key every time OpenVisualizer is initialized
+        # Use static key for development purposes
+        #self.networkKey = u.str2buf(os.urandom(16))  # random key every time OpenVisualizer is initialized
+        self.networkKey = [0x15, 0x38, 0xb6, 0x9a, 0x00, 0xbd, 0xa9, 0x17,
+                           0x14, 0x50, 0x1c, 0xf6, 0x67, 0x76, 0x62, 0xc1]
         self.networkKeyIndex = 0x01  # L2 key index
 
         # initialize parent class
